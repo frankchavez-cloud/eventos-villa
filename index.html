@@ -77,6 +77,20 @@
 
     <section id="statusMessage" class="status">Cargando eventos desde Excel...</section>
     <section id="calendar" class="calendar"></section>
+
+    <section class="availability-panel">
+      <div>
+        <div class="eyebrow">Consulta operativa</div>
+        <h3>Disponibilidad de ambiente</h3>
+        <p>Valida si un espacio ya está agendado para el día seleccionado.</p>
+      </div>
+      <div class="availability-form">
+        <input id="availabilityDate" type="date" />
+        <input id="availabilityLocation" placeholder="Ejemplo: Auditorio O, Lote 28, J-105..." />
+        <button onclick="openAvailabilityModal()">Consultar</button>
+      </div>
+      <div id="availabilityResult" class="availability-result"></div>
+    </section>
   </main>
 
   <div id="eventModal" class="modal hidden">

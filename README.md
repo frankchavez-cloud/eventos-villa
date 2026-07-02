@@ -38,3 +38,12 @@ Mejoras incluidas:
 - Requerimientos con etiquetas visuales e iconos.
 - Indicadores de estado: Próximo, En curso y Finalizado.
 - Animación suavizada para evitar temblores.
+
+
+## V7.5 Operativa
+- Tarjetas de eventos con tamaño uniforme para evitar saltos visuales.
+- Requerimientos siempre visibles en formato etiqueta.
+- Scroll estable sin crecimiento/desplazamiento irregular.
+- Foco visual por borde, sombra y línea de tiempo activa.
+- Corrección del KPI Feriados Perú para mostrar feriados del mes y eventos asociados, no todos los eventos.
+- Consulta de disponibilidad por fecha y ubicación/ambiente.

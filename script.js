@@ -506,6 +506,14 @@ else if(type==="manana"){
    rows = events.filter(e=>e.fecha===toISODate(manana));
 }
 
+else if(type==="feriados"){
+   title.textContent="FERIADOS PERÚ";
+   info.textContent="Feriados del mes seleccionado";
+   list.innerHTML = buildFeriadosHTML();
+   document.getElementById("kpiModal").classList.remove("hidden");
+   return;
+}
+
 else if(type==="proximo"){
 
    title.textContent="PRÓXIMO EVENTO";
@@ -544,7 +552,6 @@ function updateFocusedCard() {
 
   cards.forEach(card => card.classList.remove("focused"));
 
-  // Forzar foco al último evento al llegar al final del scroll.
   if (container.scrollTop + container.clientHeight >= container.scrollHeight - 24) {
     cards[cards.length - 1].classList.add("focused");
     return;
@@ -552,6 +559,7 @@ function updateFocusedCard() {
 
   const containerTop = container.getBoundingClientRect().top;
   const focusLine = containerTop + Math.min(260, container.clientHeight * 0.38);
+
   let closest = null;
   let best = Infinity;
 
