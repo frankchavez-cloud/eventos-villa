@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centro de Control de Eventos Campus Villa V6.0</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="favicon.ico" />
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div id="login" class="login-screen">
+    <div class="login-card">
+      <div class="login-badge">V6.0</div>
+      <h1>Centro de Control de Eventos</h1>
+      <p>Campus Villa</p>
+      <input id="passwordInput" type="password" placeholder="Ingrese contraseña" />
+      <button onclick="login()">Ingresar</button>
+      <small>Contraseña inicial: <b>villa2026</b></small>
+    </div>
+  </div>
+
+  <main id="app" class="hidden">
+    <header class="header">
+      <section>
+        <div class="eyebrow">Dashboard conectado a Excel + ubicación</div>
+        <h1>Centro de Control de Eventos</h1>
+        <p>Campus Villa · Eventos, ubicaciones y atenciones</p>
+      </section>
+
+      <section class="header-actions">
+        <div class="clock">
+          <span id="currentDate"></span>
+          <strong id="currentTime"></strong>
+        </div>
+        <button class="secondary" onclick="goToday()">Hoy</button>
+        <button class="danger" onclick="logout()">Salir</button>
+      </section>
+    </header>
+
+    <section class="toolbar">
+      <div class="month-nav">
+        <button onclick="changeMonth(-1)">◀</button>
+        <h2 id="monthTitle"></h2>
+        <button onclick="changeMonth(1)">▶</button>
+      </div>
+      <div class="view-switch">
+        <button id="btnMonth" class="active" onclick="setView('month')">Mensual</button>
+        <button id="btnWeek" onclick="setView('week')">Semanal</button>
+      </div>
+    </section>
+
+    <section class="filters">
+      <input id="searchInput" placeholder="Buscar por OT, evento, ubicación o requerimiento..." oninput="render()" />
+      <select id="areaFilter" onchange="render()"><option value="">Todas las áreas</option></select>
+      <select id="ubicacionFilter" onchange="render()"><option value="">Todas las ubicaciones</option></select>
+      <select id="estadoFilter" onchange="render()"><option value="">Todos los estados</option></select>
+      <select id="categoriaFilter" onchange="render()"><option value="">Todas las categorías</option></select>
+    </section>
+
+    <section class="kpis">
+      <article class="kpi blue" onclick="openKpiModal('eventos')"><span id="kpiTotal">0</span><small>TOTAL EVENTOS</small></article>
+      <article class="kpi green" onclick="openKpiModal('hoy')"><span id="kpiDone">0</span><small>HOY</small></article>
+      <article class="kpi amber" onclick="openKpiModal('manana')"><span id="kpiPending">0</span><small>MAÑANA</small></article>
+      <article class="kpi red" onclick="openKpiModal('proximo')"><span id="kpiHigh">0</span><small>PRÓXIMO EVENTO</small></article>
+      <article class="kpi purple" onclick="openKpiModal('feriados')"><span id="kpiHoliday">0</span><small>Feriados Perú</small></article>
+    </section>
+
+    <section class="legend">
+      <span><i class="legend-dot alta"></i>Alta</span>
+      <span><i class="legend-dot media"></i>Media</span>
+      <span><i class="legend-dot baja"></i>Baja</span>
+      <span><i class="legend-dot feriado"></i>Feriado</span>
+      <span><i class="legend-dot today"></i>Hoy</span>
+    </section>
+
+    <section id="statusMessage" class="status">Cargando eventos desde Excel...</section>
+    <section id="calendar" class="calendar"></section>
+  </main>
+
+  <div id="eventModal" class="modal hidden">
+    <div class="modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">Eventos del día</div>
+          <h2 id="modalDate"></h2>
+          <p id="modalInfo"></p>
+        </div>
+        <button class="modal-close" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-tabs">
+<button id="tabEventos" onclick="showModalTab('eventos')">EVENTOS</button>
+<button id="tabOperativo" onclick="showModalTab('operativo')">OPERATIVO DEL DÍA</button>
+</div>
+<div id="eventScroll" class="event-scroll"></div>
+<div id="operativoScroll" class="event-scroll hidden"></div>
+    </div>
+  </div>
+
+  <div id="kpiModal" class="modal hidden">
+    <div class="modal-card kpi-modal-card">
+      <div class="modal-head">
+        <div>
+          <div class="eyebrow">Resumen ejecutivo</div>
+          <h2 id="kpiModalTitle"></h2>
+          <p id="kpiModalInfo"></p>
+        </div>
+        <button class="modal-close" onclick="closeKpiModal()">×</button>
+      </div>
+      <div id="kpiList" class="kpi-list"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

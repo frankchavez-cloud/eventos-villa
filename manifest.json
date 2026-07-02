@@ -1,0 +1,9 @@
+{
+  "name": "Eventos Campus Villa V6",
+  "short_name": "Eventos V6",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#09121f",
+  "theme_color": "#7A0019",
+  "description": "Dashboard ejecutivo de eventos Campus Villa"
+}
