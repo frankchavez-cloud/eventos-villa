@@ -47,3 +47,11 @@ Mejoras incluidas:
 - Foco visual por borde, sombra y línea de tiempo activa.
 - Corrección del KPI Feriados Perú para mostrar feriados del mes y eventos asociados, no todos los eventos.
 - Consulta de disponibilidad por fecha y ubicación/ambiente.
+
+
+## V7.6 – Total Eventos ordenado
+- Agrupación visual por fecha en el modal TOTAL EVENTOS.
+- Orden cronológico obligatorio: fecha y luego hora.
+- Numeración correlativa continua de los eventos.
+- Banda institucional para separar cada día.
+- Tarjetas uniformes para mantener un scroll estable.

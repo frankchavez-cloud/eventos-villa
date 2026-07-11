@@ -1220,3 +1220,123 @@ button:hover,
     grid-template-columns:1fr;
   }
 }
+
+
+/* ===== V7.6 TOTAL EVENTOS ORDENADO POR FECHA Y HORA ===== */
+
+.agenda-resumen{
+  width:100%;
+}
+
+.agenda-fecha-grupo{
+  position:sticky;
+  top:-54px;
+  z-index:5;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  margin:18px 0 12px;
+  padding:12px 16px;
+  border-radius:14px;
+  background:linear-gradient(90deg,#7a0019,#a00028);
+  color:#fff;
+  font-size:16px;
+  font-weight:950;
+  letter-spacing:.35px;
+  box-shadow:0 10px 24px rgba(0,0,0,.22);
+}
+
+.agenda-fecha-grupo:first-child{
+  margin-top:0;
+}
+
+.agenda-fecha-icon{
+  font-size:20px;
+}
+
+.agenda-item-uniforme{
+  position:relative;
+  grid-template-columns:52px 105px 1fr;
+  min-height:150px;
+  height:150px;
+  align-items:start;
+  overflow:hidden;
+  margin-bottom:10px;
+  padding:14px 16px;
+}
+
+.agenda-secuencia{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#7a0019;
+  color:#fff;
+  font-size:15px;
+  font-weight:950;
+  box-shadow:0 6px 16px rgba(122,0,25,.22);
+}
+
+.agenda-item-uniforme .agenda-hora{
+  font-size:22px;
+  line-height:38px;
+  white-space:nowrap;
+}
+
+.agenda-item-uniforme .agenda-evento{
+  min-width:0;
+}
+
+.agenda-item-uniforme .agenda-titulo{
+  min-height:24px;
+  font-size:18px;
+  line-height:1.25;
+}
+
+.agenda-item-uniforme .agenda-ambiente{
+  margin-top:5px;
+}
+
+.agenda-item-uniforme .agenda-req{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  max-height:62px;
+  overflow:hidden;
+  margin-top:8px;
+}
+
+.agenda-item-uniforme .agenda-req span{
+  margin:0;
+}
+
+@media (max-width:760px){
+  .agenda-fecha-grupo{
+    top:-54px;
+    font-size:13px;
+  }
+
+  .agenda-item-uniforme{
+    grid-template-columns:42px 75px 1fr;
+    min-height:170px;
+    height:170px;
+    padding:12px 10px;
+  }
+
+  .agenda-secuencia{
+    width:32px;
+    height:32px;
+    font-size:13px;
+  }
+
+  .agenda-item-uniforme .agenda-hora{
+    font-size:17px;
+    line-height:32px;
+  }
+
+  .agenda-item-uniforme .agenda-titulo{
+    font-size:16px;
+  }
+}

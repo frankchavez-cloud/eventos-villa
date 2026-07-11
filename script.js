@@ -447,46 +447,70 @@ function openKpiModal(type) {
   const info = document.getElementById("kpiModalInfo");
   const events = monthEvents().sort((a,b)=>a.fecha.localeCompare(b.fecha)||a.hora.localeCompare(b.hora));
 
- function operativoRows(rows){
+ function operativoRows(rows, groupByDate = false){
 
-return `
-<div class="agenda-resumen">
+  const ordered = [...rows].sort(
+    (a,b) => a.fecha.localeCompare(b.fecha) || a.hora.localeCompare(b.hora)
+  );
 
-${rows.map(e=>`
+  let lastDate = "";
+  let sequence = 0;
 
-<div class="agenda-item">
+  const content = ordered.map(e => {
+    sequence += 1;
 
-<div class="agenda-hora">
-${e.hora}
-</div>
+    let dateHeader = "";
+    if (groupByDate && e.fecha !== lastDate) {
+      lastDate = e.fecha;
+      const dateObj = parseDate(e.fecha);
+      const dateLabel = dateObj.toLocaleDateString("es-PE", {
+        weekday: "long",
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+      }).toUpperCase();
 
-<div class="agenda-evento">
+      dateHeader = `
+        <div class="agenda-fecha-grupo">
+          <span class="agenda-fecha-icon">📅</span>
+          <span>${dateLabel}</span>
+        </div>`;
+    }
 
-<div class="agenda-titulo">
-${e.evento}
-</div>
+    const reqs = String(e.requerimientos || "")
+      .split(/[\/;\n]+/)
+      .map(x => x.trim())
+      .filter(Boolean);
 
-<div class="agenda-ambiente">
-📍 ${e.ubicacion || "-"}
-</div>
+    return `
+      ${dateHeader}
+      <div class="agenda-item agenda-item-uniforme">
+        <div class="agenda-secuencia">${sequence}</div>
 
-<div class="agenda-req">
-${(e.requerimientos||"")
-.split("/")
-.map(x=>`<span>${x.trim()}</span>`)
-.join("")}
-</div>
+        <div class="agenda-hora">
+          ${e.hora || "--:--"}
+        </div>
 
-</div>
+        <div class="agenda-evento">
+          <div class="agenda-titulo">
+            ${e.evento}
+          </div>
 
-</div>
+          <div class="agenda-ambiente">
+            📍 ${e.ubicacion || "-"}
+          </div>
 
-`).join("")}
+          <div class="agenda-req">
+            ${reqs.length
+              ? reqs.map(x => `<span>${x}</span>`).join("")
+              : `<span>Sin requerimientos registrados</span>`}
+          </div>
+        </div>
+      </div>`;
+  }).join("");
 
-</div>
-`;
+  return `<div class="agenda-resumen">${content}</div>`;
 }
-
   let rows=[];
 
 if(type==="eventos"){
@@ -537,8 +561,8 @@ else if(type==="proximo"){
 }
   else { rows=events; }
 
-  info.textContent=`${rows.length} registro(s)`;
-  list.innerHTML = rows.length ? operativoRows(rows) : `<div class="no-events">No hay eventos.</div>`;
+  info.textContent = type === "eventos" ? `${rows.length} evento(s) ordenados por fecha y hora` : `${rows.length} registro(s)`;
+  list.innerHTML = rows.length ? operativoRows(rows, type === "eventos") : `<div class="no-events">No hay eventos.</div>`;
   document.getElementById("kpiModal").classList.remove("hidden");
 }
 function closeKpiModal() { document.getElementById("kpiModal").classList.add("hidden"); }
